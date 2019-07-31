@@ -42,15 +42,18 @@ def evt_to_xml(path,file):
 
 #correct structure of the data field
 def correct_data_field_structure(event):
-	if ('Data' in event['Event']['EventData']) and not (event['Event']['EventData']['Data'] == None):
-		data = {}
-		for field in range(0,len(event['Event']['EventData']['Data'])):
-			field_name = event['Event']['EventData']['Data'][field]['@Name']
-			try:
-				text = event['Event']['EventData']['Data'][field]['#text']
-			except:
-				text = '-'
-			data[field_name] = text
+	data = {}
+	try:
+		if ('Data' in event['Event']['EventData']) and not (event['Event']['EventData']['Data'] == None):
+			for field in range(0,len(event['Event']['EventData']['Data'])):
+				field_name = event['Event']['EventData']['Data'][field]['@Name']
+				try:
+					text = event['Event']['EventData']['Data'][field]['#text']
+				except:
+					text = '-'
+				data[field_name] = text
+	except:
+		return event
 	event['Event']['EventData']['Data'] = data	
 	return event
 
