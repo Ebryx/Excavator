@@ -21,7 +21,7 @@ def check_os():
 def evt_to_xml(path,file):
 	#check if running on windows
 	check_os()
-	#define scope of filess
+	#define scope of files
 	if file == '*':
 		for file in os.listdir(path):
 			if file.endswith('.evtx'):
@@ -39,6 +39,20 @@ def evt_to_xml(path,file):
 			print('[~] ',exception)
 			print('[-] Unable to execute command!')
 			exit()
+
+#correct structure of the data field
+def correct_data_field_structure(event):
+	if ('Data' in event['Event']['EventData']) and not (event['Event']['EventData']['Data'] == None):
+		data = {}
+		for field in range(0,len(event['Event']['EventData']['Data'])):
+			field_name = event['Event']['EventData']['Data'][field]['@Name']
+			try:
+				text = event['Event']['EventData']['Data'][field]['#text']
+			except:
+				text = '-'
+			data[field_name] = text
+	event['Event']['EventData']['Data'] = data	
+	return event
 
 def validate_event(event):
 	#print the log that is parsed form XML before editing anything
@@ -98,6 +112,7 @@ def xml_to_json_to_es(action,path,ip,port,file,index,user,pwd,size,scheme):
 						event = event.replace('\n','')
 						event = json.loads(json.dumps(xmltodict.parse(event)))
 						event = validate_event(event)
+						event = correct_data_field_structure(event)
 						successful_events=successful_events+1
 						if action == 'send':
 							bulk.append({
@@ -136,6 +151,7 @@ def xml_to_json_to_es(action,path,ip,port,file,index,user,pwd,size,scheme):
 					event = event.replace('\n','')
 					event = json.loads(json.dumps(xmltodict.parse(event)))
 					event = validate_event(event)
+					event = correct_data_field_structure(event)
 					successful_events=successful_events+1
 					if action == 'send' or action == 'auto':
 						bulk.append({

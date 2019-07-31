@@ -9,12 +9,12 @@ __Requirments:__
 
 __Tested OS:__
 
-- Windows 10
+- Windows 10 (Prefered)
 - Ubuntu 18.04
 
 __Tested Python Version:__
 
-- Python 3.7.2
+- Python 3.7.2 (Prefered)
 
 __What You Can Do With Excavator:__
 
@@ -77,4 +77,4 @@ python Excavator.py -m auto -p <path_to_directory> -f <filename.evtx> -ip <elast
 
 ## Future Improvement:
 
-- We will be improving Excavator it in future however, if you want to cater for any exception in event-logs that causes __ELK ingestion error__ by yourself, then you can add it in __validate_event()__
+- Excavator will keep improving in the future however, if you want to cater for any exception in event-logs that causes __ELK ingestion error__ by yourself, then you can add it in __validate_event()__
