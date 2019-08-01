@@ -9,7 +9,6 @@ import json
 import xmltodict
 from elasticsearch import Elasticsearch, helpers
 from datetime import datetime
-import time
 
 
 ##global vars##
