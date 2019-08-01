@@ -132,7 +132,7 @@ def xml_to_json_to_es(action,path,ip,port,file,index,user,pwd,size,scheme):
 								"body": event
 								})
 							if (len(bulk) == size):
-								print(f'==> [~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
+								print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
 								logs_sent = False
 								#keep looping until the bulked logs have not been sent successfully
 								while not logs_sent:
@@ -171,7 +171,7 @@ def xml_to_json_to_es(action,path,ip,port,file,index,user,pwd,size,scheme):
 							"body": event
 							})
 						if (len(bulk) == size):
-							print(f'==> [~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
+							print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
 							logs_sent = False
 							#keep looping until the bulked logs have not been sent successfully
 							while not logs_sent:
@@ -182,7 +182,7 @@ def xml_to_json_to_es(action,path,ip,port,file,index,user,pwd,size,scheme):
 									continue
 					elif action == 'json':
 						print(json.dumps(event, indent=4))
-	print(f'==> [~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
+	print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
 	logs_sent = False
 	logs_sent = push_to_elk(ip,port,index,user,pwd,bulk,scheme)
 	#keep looping until the bulked logs have not been sent successfully
@@ -235,7 +235,7 @@ def sanity_check(action,path,ip,file,scheme):
 #main
 if __name__ == '__main__':
 	global_vars["time_start"] = datetime.now()
-	print(f'==> [~] Time of start: {global_vars["time_start"]}')
+	print(f'[~] Time of start: {global_vars["time_start"]}')
 	parser = argparse.ArgumentParser('Excavator.py')
 	parser.add_argument('-m', metavar='<action>', type=str, help='auto, json, send, xml')
 	parser.add_argument('-p', metavar='<path>', type=str, help='path to Evtx files')
@@ -253,7 +253,7 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	sanity_check(args.m,args.p,args.ip,args.f,args.scheme)
 	process(args.m,args.p,args.ip,args.port,args.f,args.i,args.user,args.pwd,args.s,args.scheme)
-	print(f'==> [~] Time of start: {global_vars["time_start"]}')
+	print(f'[~] Time of start: {global_vars["time_start"]}')
 	global_vars["time_end"] = datetime.now()
-	print(f'==> [~] Time end: {global_vars["time_end"]}')
-	print(f'==> [~] Time difference: {global_vars["time_end"]-global_vars["time_start"]}')
+	print(f'[~] Time end: {global_vars["time_end"]}')
+	print(f'[~] Time difference: {global_vars["time_end"]-global_vars["time_start"]}')
