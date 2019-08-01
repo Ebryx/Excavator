@@ -132,7 +132,7 @@ def xml_to_json_to_es(action,path,ip,port,file,index,user,pwd,size,scheme):
 								"body": event
 								})
 							if (len(bulk) == size):
-								print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
+								print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs from {file} to ELK: {successful_events}')
 								logs_sent = False
 								#keep looping until the bulked logs have not been sent successfully
 								while not logs_sent:
@@ -171,7 +171,7 @@ def xml_to_json_to_es(action,path,ip,port,file,index,user,pwd,size,scheme):
 							"body": event
 							})
 						if (len(bulk) == size):
-							print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
+							print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs from {file} to ELK: {successful_events}')
 							logs_sent = False
 							#keep looping until the bulked logs have not been sent successfully
 							while not logs_sent:
@@ -182,7 +182,7 @@ def xml_to_json_to_es(action,path,ip,port,file,index,user,pwd,size,scheme):
 									continue
 					elif action == 'json':
 						print(json.dumps(event, indent=4))
-	print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs to ELK: {successful_events}')
+	print(f'[~] Time Passed: {datetime.now()-global_vars["time_start"]} -- Sending Logs from {file} to ELK: {successful_events}')
 	logs_sent = False
 	logs_sent = push_to_elk(ip,port,index,user,pwd,bulk,scheme)
 	#keep looping until the bulked logs have not been sent successfully
